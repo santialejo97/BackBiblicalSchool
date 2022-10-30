@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: ${NAME_DB}
+      MYSQL_USER: ${USERNAME_DB}
+      MYSQL_PASSWORD: ${PASSWORD_DB}
+      MYSQL_ROOT_PASSWORD: ${PASSWORD_DB}
+    container_name: biblicalSchoolDB
+    volumes:
+      - ./mysqlschool:/etc/mysql/conf.d
