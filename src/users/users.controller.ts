@@ -21,7 +21,6 @@ import { getUser } from './decorators/get-user.decorator';
 import { User } from './entities/user.entity';
 import { validRole } from 'src/common/decorators/auth/validRoles.decorator';
 import { validRoles } from 'src/common/interfaces/globla.interfaces';
-import { UserRoleGuard } from './guards/user-role/user-role.guard';
 import { Auth } from 'src/common/decorators/auth/auth.decorators';
 
 @Controller('users')
