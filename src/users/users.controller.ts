@@ -43,6 +43,7 @@ export class UsersController {
     console.log(user);
     return this.usersService.findAll(pagination);
   }
+  // @Auth(validRoles.admin, validRoles.user)
 
   @Patch('update/:id')
   @Auth(validRoles.admin, validRoles.user)
@@ -51,6 +52,7 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
     @getUser() user: User,
   ) {
+    console.log('controller');
     return this.usersService.updateUser(id, updateUserDto, user);
   }
 
