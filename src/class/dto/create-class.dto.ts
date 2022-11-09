@@ -3,7 +3,7 @@ import {
   IsString,
   IsOptional,
   IsPositive,
-  IsAlpha,
+  IsBoolean,
 } from 'class-validator';
 
 export class CreateClassDto {
@@ -19,5 +19,9 @@ export class CreateClassDto {
 
   @IsString()
   @IsOptional()
-  description: string;
+  description?: string;
+
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
 }

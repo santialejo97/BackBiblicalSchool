@@ -29,6 +29,12 @@ export class Clase {
   })
   description: string;
 
+  @Column({
+    type: 'boolean',
+    default: true,
+  })
+  isActive: boolean;
+
   @ManyToOne(() => User, (user) => user.clase, { eager: true })
   userId: User;
 }

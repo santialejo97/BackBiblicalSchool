@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ClassService } from './class.service';
 import { CreateClassDto } from './dto/create-class.dto';
@@ -45,9 +46,12 @@ export class ClassController {
     return this.classService.update(id, updateClassDto);
   }
 
-  @Delete('delete /:id')
+  @Delete('inabilited/:id')
   @Auth(validRoles.admin)
-  remove(@Param('id') id: string) {
-    return this.classService.remove(+id);
+  inabilited(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateClassDto: UpdateClassDto,
+  ) {
+    return this.classService.inabilited(id, updateClassDto);
   }
 }
