@@ -34,6 +34,6 @@ export class User {
   })
   roleUser: string;
 
-  @OneToMany(() => Clase, (clase) => clase.userId)
+  @OneToMany(() => Clase, (clase) => clase.idUser)
   clase: Clase;
 }

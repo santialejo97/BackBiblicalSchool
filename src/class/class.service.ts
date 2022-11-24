@@ -29,7 +29,7 @@ export class ClassService {
     try {
       const clase = await this.classRepository.create({
         ...createClassDto,
-        userId: user,
+        idUser: user,
       });
 
       await this.classRepository.save(clase);
@@ -77,11 +77,14 @@ export class ClassService {
   }
 
   async update(id: string, updateClassDto: UpdateClassDto) {
-    if (uuid.validate(id))
+    const { ...detail } = updateClassDto;
+    if (!uuid.validate(id))
       throw new BadRequestException(`The id ${id} not is a uuid valid`);
 
+    console.log(updateClassDto);
     const clase = await this.classRepository.preload({
-      ...updateClassDto,
+      idClass: id,
+      ...detail,
     });
 
     try {

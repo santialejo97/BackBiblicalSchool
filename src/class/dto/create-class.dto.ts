@@ -12,7 +12,7 @@ export class CreateClassDto {
 
   @IsNumber()
   @IsPositive()
-  numberSession: number;
+  numberSesion: number;
 
   @IsString()
   slug: string;

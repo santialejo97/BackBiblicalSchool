@@ -1,5 +1,12 @@
+import { Session } from 'src/session/entities/session.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'class' })
 export class Clase {
@@ -36,5 +43,8 @@ export class Clase {
   isActive: boolean;
 
   @ManyToOne(() => User, (user) => user.clase, { eager: true })
-  userId: User;
+  idUser: User;
+
+  @OneToMany(() => Session, (session) => session.idClass)
+  session: Session;
 }
