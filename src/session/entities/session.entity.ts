@@ -8,6 +8,7 @@ export class Session {
 
   @Column({
     type: 'varchar',
+    srid: 400,
   })
   titleSession: string;
 
@@ -20,6 +21,9 @@ export class Session {
     type: 'int',
   })
   numberSession: number;
+
+  @Column({ type: 'varchar' })
+  video: string;
 
   @ManyToOne(() => Clase, (clase) => clase.session, { eager: true })
   idClass: Clase;

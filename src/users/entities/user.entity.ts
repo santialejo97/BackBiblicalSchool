@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Clase } from '../../class/entities/class.entity';
+import { Total } from '../../total/entities/total.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -36,4 +37,7 @@ export class User {
 
   @OneToMany(() => Clase, (clase) => clase.idUser)
   clase: Clase;
+
+  @OneToMany(() => Total, (total) => total.userId)
+  totalClass: Total;
 }

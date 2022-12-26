@@ -21,8 +21,6 @@ export class ClassService {
   constructor(
     @InjectRepository(Clase)
     private readonly classRepository: Repository<Clase>,
-    @InjectRepository(User)
-    private readonly userRepositori: Repository<User>,
   ) {}
 
   async create(createClassDto: CreateClassDto, user: User) {
