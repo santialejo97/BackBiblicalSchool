@@ -11,6 +11,8 @@ import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { Total } from './entities/total.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UsersService } from '../users/users.service';
+import { Payload } from 'src/common/interfaces/globla.interfaces';
 
 @Injectable()
 export class TotalService {
@@ -21,10 +23,12 @@ export class TotalService {
     private readonly totalRepository: Repository<Total>,
     @InjectRepository(User)
     private readonly userRepositoty: Repository<User>,
+    private userServices: UsersService,
   ) {}
 
   async create(createTotalDto: CreateTotalDto, user: User) {
-    const registers = await this.findOne(user.idUser);
+    const { clase } = createTotalDto;
+    const registers = await this.findOne(user.idUser, clase);
     if (registers.length === 3)
       throw new BadRequestException('the number of attempts was reached');
     try {
@@ -33,27 +37,31 @@ export class TotalService {
         userId: user,
       });
 
+      const payload: Payload = {
+        id: user.idUser,
+        email: user.email,
+      };
+
       await this.totalRepository.save(registro);
-      return registro;
+      return { registro, token: this.userServices.getJwtUser(payload) };
     } catch (error) {
       this.handlerErrorException(error);
     }
   }
 
-  async findOne(userId: string) {
+  async findOne(userId: string, clase: string) {
     const user = await this.userRepositoty.findOneBy({ idUser: userId });
     if (!user) throw new NotFoundException('Not exit user with id');
 
-    const registers = await this.totalRepository.findBy({ userId: user });
+    const registers = await this.totalRepository.findBy({
+      userId: user,
+      clase: clase,
+    });
 
     if (!registers)
       throw new NotFoundException(`Not fount registers with is ID : ${userId}`);
-    console.log(registers);
-    return registers;
-  }
 
-  async update(id: string, updateTotalDto: UpdateTotalDto) {
-    return `This action updates a #${id} total`;
+    return registers;
   }
 
   handlerErrorException(error: any) {

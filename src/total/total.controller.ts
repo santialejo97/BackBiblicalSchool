@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { TotalService } from './total.service';
 import { CreateTotalDto } from './dto/create-total.dto';
-import { UpdateTotalDto } from './dto/update-total.dto';
 import { getUser } from '../users/decorators/get-user.decorator';
 import { User } from '../users/entities/user.entity';
 import { Auth } from 'src/common/decorators/auth/auth.decorators';
@@ -28,12 +27,10 @@ export class TotalController {
   }
 
   @Get('find/:id')
-  findOne(@Param('id') id: string) {
-    return this.totalService.findOne(id);
-  }
-
-  @Patch('update/:id')
-  update(@Param('id') id: string, @Body() updateTotalDto: UpdateTotalDto) {
-    return this.totalService.update(id, updateTotalDto);
+  findOne(
+    @Param('id') id: string,
+    @Query('clase', ParseUUIDPipe) clase: string,
+  ) {
+    return this.totalService.findOne(id, clase);
   }
 }

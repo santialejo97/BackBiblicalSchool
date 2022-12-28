@@ -28,7 +28,7 @@ export class UserRoleGuard implements CanActivate {
     if (validRole.includes(user.roleUser)) return true;
 
     throw new ForbiddenException(
-      `The user ${user.nameUser} is invalid, talk with admin`,
+      `The user ${user.nameUser} not have a role valid, talk with admin`,
     );
   }
 }

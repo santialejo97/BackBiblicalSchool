@@ -13,6 +13,8 @@ import { UpdateClassDto } from './dto/update-class.dto';
 import { Clase } from './entities/class.entity';
 import { PaginationDto } from '../common/dtos/pagination.dto';
 import * as uuid from 'uuid';
+import { UsersService } from '../users/users.service';
+import { Payload } from 'src/common/interfaces/globla.interfaces';
 
 @Injectable()
 export class ClassService {
@@ -21,6 +23,7 @@ export class ClassService {
   constructor(
     @InjectRepository(Clase)
     private readonly classRepository: Repository<Clase>,
+    private readonly userServices: UsersService,
   ) {}
 
   async create(createClassDto: CreateClassDto, user: User) {
@@ -31,8 +34,11 @@ export class ClassService {
       });
 
       await this.classRepository.save(clase);
-
-      return clase;
+      const payload: Payload = {
+        id: user.idUser,
+        email: user.email,
+      };
+      return { clase, token: this.userServices.getJwtUser(payload) };
     } catch (error) {
       this.handlerErrorException(error);
     }

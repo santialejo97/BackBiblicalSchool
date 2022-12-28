@@ -95,7 +95,9 @@ export class UsersService {
       // ! Convertir el buscador en key sensity
       const queryBuilder = this.userRepository.createQueryBuilder('user');
       user = await queryBuilder
-        .where('UPPER(nameUser) = :nameUser', { nameUser: term.toUpperCase() })
+        .where('UPPER(nameUser) like :nameUser', {
+          nameUser: `%${term.toUpperCase()}%`,
+        })
         .getOne();
     }
     if (!user)
