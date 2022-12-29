@@ -16,6 +16,7 @@ import { ClassController } from './class/class.controller';
 import { SessionController } from './session/session.controller';
 import { TotalController } from './total/total.controller';
 import { UsersController } from './users/users.controller';
+import { ValidAccessModule } from './valid_access/valid_access.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UsersController } from './users/users.controller';
     ClassModule,
     SessionModule,
     TotalModule,
+    ValidAccessModule,
   ],
 })
 export class AppModule {}

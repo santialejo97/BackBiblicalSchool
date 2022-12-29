@@ -5,6 +5,7 @@ import { ResetTokenMiddleware } from './middlewares/reset_token/reset_token.midd
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.setGlobalPrefix('BiblicalSchool');
   app.useGlobalPipes(
     new ValidationPipe({
